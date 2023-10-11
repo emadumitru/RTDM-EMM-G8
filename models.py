@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-# import Orange
+import Orange
 import pysubgroup as ps
 
 def data_clean(data):
@@ -33,39 +33,33 @@ def run_sd(data, tg):
     result_df2 = result.to_dataframe()
     return(result_df2)
 
-# def run_orange(): 
-    data_table = Orange.data.Table.from_numpy(None, data.values, data.index)
-    # from orangecontrib.associate.fpgrowth import *
 
-    # itemsets = list(frequent_itemsets(data_table, min_support=0.1))  # Adjust support as needed
-    # itemsets_dict = {frozenset(itemset): support for itemset, support in itemsets}
-    # rules = association_rules(itemsets, min_confidence=0.5)  
-    # print(rules)
-    # subgroups = []
-    # for rule in rules:
-    #     antecedent = rule[0]
-    #     if antecedent:  # Ensure the antecedent (conditions) exist
-    #         subgroup = {item[0] for item in antecedent}
-    #         subgroups.append(subgroup)\
+def run_cn2_sd(data):
+    # Convert data to Orange data table
+    domain = Orange.data.Domain([Orange.data.ContinuousVariable.make(name) for name in data.columns])
+    data_table = Orange.data.Table.from_numpy(domain, data.values)
 
+    # Discretize the 'G3' variable
+    discretizer = Orange.preprocess.Discretize()
+    discretizer.method = Orange.preprocess.discretize.EqualFreq(n=5)
+    data_table_discretized = discretizer(data_table)
 
-    from Orange.classification import CN2Learner
+    # Ensure unique variable names
+    unique_vars = set(data_table_discretized.domain.variables)
+    unique_vars.discard(data_table_discretized.domain["G3"])
 
-    data['G3'] = pd.cut(data['G3'], bins=5) 
-
-    data_table = Orange.data.Table(data.values)
+    # Update the domain to make 'G3' as a class variable
+    new_domain = Orange.data.Domain(unique_vars, data_table_discretized.domain["G3"])
+    data_table_discretized = Orange.data.Table.from_table(new_domain, data_table_discretized)
 
     # Set up the CN2-SD learner for subgroup discovery
     cn2sd_learner = Orange.classification.rules.CN2SDLearner()
 
-    # Specify the target variable
-    target_variable = Orange.data.Variable(data_table.domain, 'G3')
-    cn2sd_learner.rule_finder.target_class = target_variable
-
     # Perform subgroup discovery
-    cn2sd_classifier = cn2sd_learner(data_table)
+    cn2sd_classifier = cn2sd_learner(data_table_discretized)
 
-    # Extract and display discovered subgroups (rules)
-    for rule in cn2sd_classifier.rule_list:
-        print(rule)
+    # Extract and return discovered subgroups (rules)
+    return cn2sd_classifier.rule_list
+
+
 
