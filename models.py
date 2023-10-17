@@ -152,7 +152,7 @@ def cn2_sd(data, target_column):
 
     result_metrics = {
         'Average Quality': np.mean(rules_df.quality),
-        'Average Coverage': np.mean(rules_df.coverage),
+        # 'Average Coverage': np.mean(rules_df.coverage),
         'Average Support': np.mean(rules_df.support),
         'Number of Subgroups': num_subgroups,
         'Average Length of Subgroups': av_len_subgroups,
@@ -227,8 +227,6 @@ def dssd(data, target_column, min_support):
     Returns:
     - pd.DataFrame containing non-redundant subgroups and their quality measures.
     """
-    import numpy as np
-    print("update?")
 
     # Binarize the input data based on median values
     for column in data.columns:
@@ -281,12 +279,13 @@ def dssd(data, target_column, min_support):
             non_redundant_subgroups.append(row['itemsets'])
 
     non_redundant_subgroups_df = sorted_subgroups[sorted_subgroups['itemsets'].isin(non_redundant_subgroups)]
-    print("problem?")
+
+
     result_metrics = {
         'Average Quality': np.mean(non_redundant_subgroups_df.quality),
         'Average Coverage': np.mean(non_redundant_subgroups_df.coverage),
         'Average Support': np.mean(non_redundant_subgroups_df.support),
-        'Number of Subgroups': len(non_redundant_subgroups_df[quality]),
+        'Number of Subgroups': len(non_redundant_subgroups_df["quality"]),
         'Average Length of Subgroups': 0,
     }
 
@@ -335,7 +334,7 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
         support = coverage / len(data)
         coverage_list.append(coverage)
         support_list.append(support)
-        return ((subgroup_mean - overall_mean) ** 2 * len(subgroup_data) / len(data), )
+        return (subgroup_mean - overall_mean) ** 2 * len(subgroup_data) / len(data)
 
     def binary_to_conditions(binary_rule, columns):
         """Convert binary rule to interpretable conditions."""
