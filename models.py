@@ -69,13 +69,40 @@ def sd(data, target_column):
     overall_mean = y.mean()
     qualities = [y[i] - overall_mean for i in range(len(y))]
 
-    # Convert rules into DataFrame
+    coverage_list = [0] * len(rules)
+    support_list = [0] * len(rules)
+
+    for i in range(len(rules)):
+        rule = rules[i]
+        subgroup_data = data.query(rule)
+        coverage = len(subgroup_data)
+        support = coverage / len(data)
+        coverage_list[i] = coverage
+        support_list[i] = support
+
+    # Number of subgroups
+    num_subgroups = len(rules)
+
+    # Average length of subgroups
+    avg_length_subgroups = np.mean([len(rule.split(" AND ")) for rule in rules])
+
+    # Convert rules and metrics into DataFrame
     rules_df = pd.DataFrame({
         'rule': rules,
-        'quality': qualities
+        'quality': qualities,
+        'coverage': coverage_list,
+        'support': support_list
     })
 
-    return rules_df.drop_duplicates().sort_values(by='quality', ascending=False)
+    result_metrics = {
+        'Average Quality': np.mean(rules_df.quality),
+        'Average Coverage': np.mean(coverage_list),
+        'Average Support': np.mean(support_list),
+        'Number of Subgroups': num_subgroups,
+        'Average Length of Subgroups': avg_length_subgroups,
+    }
+
+    return result_metrics
 
 
 def cn2_sd(data, target_column):
@@ -112,12 +139,27 @@ def cn2_sd(data, target_column):
     for rule in classifier.rule_list:
         # Using string representation to extract the rule conditions
         rule_str = str(rule).split("->")[0].strip()
-        rules.append((rule_str, rule.quality))
+        coverage = rule.covered_examples
+        support = len(coverage) / len(data)
+        quality = rule.quality
+        rules.append((rule_str, quality, coverage, support))
 
     # Convert rules into DataFrame
-    rules_df = pd.DataFrame(rules, columns=['rule', 'quality'])
+    rules_df = pd.DataFrame(rules, columns=['rule', 'quality', 'coverage', 'support'])
 
-    return rules_df.sort_values(by='quality', ascending=False)
+    num_subgroups = len(rules)
+    av_len_subgroups = sum(len(rule[0].split(' AND ')) for rule in rules) / num_subgroups
+
+    result_metrics = {
+        'Average Quality': np.mean(rules_df.quality),
+        'Average Coverage': np.mean(rules_df.coverage),
+        'Average Support': np.mean(rules_df.support),
+        'Number of Subgroups': num_subgroups,
+        'Average Length of Subgroups': av_len_subgroups,
+    }
+
+    # return rules_df.sort_values(by='quality', ascending=False), num_subgroups, len_subgroups
+    return result_metrics
 
 
 def sd_map(data, target_column, min_support):
@@ -145,16 +187,30 @@ def sd_map(data, target_column, min_support):
     # Compute the quality of each subgroup
     overall_mean = data[target_column].mean()
     quality_measures = []
+    coverage_list = []
+    support_list = []
 
     for _, row in frequent_itemsets.iterrows():
         subgroup_data = data[np.logical_and.reduce([data[col] for col in row['itemsets']])]
         subgroup_mean = subgroup_data[target_column].mean()
+        coverage = len(subgroup_data)
+        support = coverage / len(data)
         quality_measures.append(subgroup_mean - overall_mean)
+        coverage_list.append(coverage)
+        support_list.append(support)
 
     frequent_itemsets['quality'] = quality_measures
 
     # Rank subgroups based on quality
     ranked_subgroups = frequent_itemsets.sort_values(by='quality', ascending=False)
+
+    result_metrics = {
+        'Average Quality': np.mean(quality_measures),
+        'Average Coverage': np.mean(coverage_list),
+        'Average Support': np.mean(support_list),
+        'Number of Subgroups': len(frequent_itemsets),
+        'Average Length of Subgroups': 0,
+    }
 
     return ranked_subgroups
 
@@ -172,6 +228,7 @@ def dssd(data, target_column, min_support):
     - pd.DataFrame containing non-redundant subgroups and their quality measures.
     """
     import numpy as np
+    print("update?")
 
     # Binarize the input data based on median values
     for column in data.columns:
@@ -184,14 +241,30 @@ def dssd(data, target_column, min_support):
 
     # Compute the quality of each subgroup
     overall_mean = data[target_column].mean()
+
     quality_measures = []
+    coverage_list = []
+    support_list = [] 
 
     for _, row in frequent_itemsets.iterrows():
         subgroup_data = data[np.logical_and.reduce([data[col] for col in row['itemsets']])]
+
         subgroup_mean = subgroup_data[target_column].mean()
-        quality_measures.append(subgroup_mean - overall_mean)
+        quality = subgroup_mean - overall_mean
+
+        # Calculate coverage (number of examples covered by the subgroup)
+        coverage = len(subgroup_data)
+
+        # Calculate support (proportion of examples in the dataset covered by the subgroup)
+        support = coverage / len(data)
+
+        quality_measures.append(quality)
+        coverage_list.append(coverage)
+        support_list.append(support)
 
     frequent_itemsets['quality'] = quality_measures
+    frequent_itemsets['coverage'] = coverage_list  # Add coverage to the DataFrame
+    frequent_itemsets['support'] = support_list
 
     # Sort subgroups based on quality
     sorted_subgroups = frequent_itemsets.sort_values(by='quality', ascending=False)
@@ -208,8 +281,16 @@ def dssd(data, target_column, min_support):
             non_redundant_subgroups.append(row['itemsets'])
 
     non_redundant_subgroups_df = sorted_subgroups[sorted_subgroups['itemsets'].isin(non_redundant_subgroups)]
+    print("problem?")
+    result_metrics = {
+        'Average Quality': np.mean(non_redundant_subgroups_df.quality),
+        'Average Coverage': np.mean(non_redundant_subgroups_df.coverage),
+        'Average Support': np.mean(non_redundant_subgroups_df.support),
+        'Number of Subgroups': len(non_redundant_subgroups_df[quality]),
+        'Average Length of Subgroups': 0,
+    }
 
-    return non_redundant_subgroups_df
+    return result_metrics
 
 
 def nmeef_sd(data, target_column, n_generations=50, population_size=100):
@@ -226,7 +307,7 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
     - pd.DataFrame containing rules (as interpretable conditions) and their quality measures.
     """
 
-    # Helper functions for the evolutionary process
+    # Helper functions for the evolutionary processes
     def crossover(parent1, parent2):
         """One-point crossover."""
         point = random.randint(0, len(parent1) - 1)
@@ -250,7 +331,11 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
         if len(subgroup_data) == 0:
             return 0
         subgroup_mean = subgroup_data[target_column].mean()
-        return (subgroup_mean - overall_mean) ** 2 * len(subgroup_data) / len(data)
+        coverage = len(subgroup_data)
+        support = coverage / len(data)
+        coverage_list.append(coverage)
+        support_list.append(support)
+        return ((subgroup_mean - overall_mean) ** 2 * len(subgroup_data) / len(data), )
 
     def binary_to_conditions(binary_rule, columns):
         """Convert binary rule to interpretable conditions."""
@@ -264,6 +349,9 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
     population = initialize_population()
     best_rules = []
     best_qualities = []
+
+    coverage_list = []
+    support_list = []
 
     # Evolutionary process
     for _ in range(n_generations):
@@ -285,6 +373,7 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
 
         # Form new population
         population = parents + offspring
+
 
     # Convert best rules into DataFrame with interpretable conditions
     rules_as_conditions = [binary_to_conditions(rule, columns) for rule in best_rules]
