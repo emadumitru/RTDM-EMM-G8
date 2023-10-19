@@ -212,7 +212,7 @@ def sd_map(data, target_column, min_support):
         'Average Length of Subgroups': 0,
     }
 
-    return ranked_subgroups
+    return result_metrics
 
 
 def dssd(data, target_column, min_support):
@@ -424,7 +424,17 @@ def apriori_sd(data, target_column, min_support=0.1, metric="lift", min_threshol
     target_rules['rule'] = target_rules['antecedents'].apply(lambda x: ' AND '.join(list(x)))
     target_rules['consequent'] = target_rules['consequents'].apply(lambda x: list(x)[0])
 
+    target_rules['coverage'] = target_rules['support'] / target_rules['antecedent support']
+
+    result_metrics = {
+        'Average Quality': 0,
+        'Average Coverage': np.mean(target_rules.coverage),
+        'Average Support': np.mean(target_rules.support),
+        'Number of Subgroups': len(target_rules),
+        'Average Length of Subgroups': np.mean([len(rule) for rule in target_rules["antecedents"]]),
+    }
+
     # Return a dataframe with the rules and their quality measures
-    return target_rules[['rule', 'consequent', 'support', 'confidence', 'lift']]
+    return result_metrics
 
 
