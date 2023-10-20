@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import Orange
+from scipy.stats import ranksums
 from Orange.data import Table, Domain, ContinuousVariable
 from Orange.classification import CN2Learner
 from mlxtend.frequent_patterns import apriori, association_rules
@@ -142,20 +143,37 @@ def cn2_sd(data, target_column):
         coverage = rule.covered_examples
         support = len(coverage) / len(data)
         quality = rule.quality
-        rules.append((rule_str, quality, coverage, support))
+
+        # Calculate WRAcc
+        true_positives = sum([data[target_column][idx] == "1" for idx in coverage])
+        false_positives = len(coverage) - true_positives
+        true_negatives = len(data) - len(coverage) - false_positives
+        false_negatives = len(data[data[target_column] == "1"]) - true_positives
+        wracc = (true_positives / len(data)) - ((true_positives + false_positives) * (true_positives + false_negatives) / (len(data) ** 2))
+
+        # Calculate Significance
+        significance = (true_positives / len(coverage)) / (len(data[data[target_column] == "1"]) / len(data))
+
+        # Calculate Confidence
+        confidence = (true_positives / len(coverage))
+
+        rules.append((rule_str, quality, coverage, support, wracc, significance, confidence))
 
     # Convert rules into DataFrame
-    rules_df = pd.DataFrame(rules, columns=['rule', 'quality', 'coverage', 'support'])
+    rules_df = pd.DataFrame(rules, columns=['rule', 'quality', 'coverage', 'support', 'WRAcc', 'Significance', 'Confidence'])
 
     num_subgroups = len(rules)
     av_len_subgroups = sum(len(rule[0].split(' AND ')) for rule in rules) / num_subgroups
 
     result_metrics = {
         'Average Quality': np.mean(rules_df.quality),
-        # 'Average Coverage': np.mean(rules_df.coverage),
+        'Average Coverage': 0,
         'Average Support': np.mean(rules_df.support),
         'Number of Subgroups': num_subgroups,
         'Average Length of Subgroups': av_len_subgroups,
+        'Average WRAcc': np.mean(rules_df.WRAcc),
+        'Average Significance': np.mean(rules_df.Significance),
+        'Average Confidence': np.mean(rules_df.Confidence),
     }
 
     # return rules_df.sort_values(by='quality', ascending=False), num_subgroups, len_subgroups
@@ -189,17 +207,35 @@ def sd_map(data, target_column, min_support):
     quality_measures = []
     coverage_list = []
     support_list = []
+    wracc_list = []
+    significance_list = []
+    confidence_list = []
 
     for _, row in frequent_itemsets.iterrows():
         subgroup_data = data[np.logical_and.reduce([data[col] for col in row['itemsets']])]
         subgroup_mean = subgroup_data[target_column].mean()
         coverage = len(subgroup_data)
         support = coverage / len(data)
+        wracc = support * (subgroup_mean - overall_mean)
+        
+        # Calculate Wilcoxon Rank Sum Test (Significance)
+        non_subgroup_data = data[~np.logical_and.reduce([data[col] for col in row['itemsets']])]
+        _, p_value = ranksums(subgroup_data[target_column], non_subgroup_data[target_column])
+        
+        # Calculate Confidence
+        confidence = support / coverage
+        
         quality_measures.append(subgroup_mean - overall_mean)
         coverage_list.append(coverage)
         support_list.append(support)
+        wracc_list.append(wracc)
+        significance_list.append(p_value)
+        confidence_list.append(confidence)
 
     frequent_itemsets['quality'] = quality_measures
+    frequent_itemsets['WRacc'] = wracc_list
+    frequent_itemsets['Significance'] = significance_list
+    frequent_itemsets['Confidence'] = confidence_list
 
     # Rank subgroups based on quality
     ranked_subgroups = frequent_itemsets.sort_values(by='quality', ascending=False)
@@ -208,8 +244,11 @@ def sd_map(data, target_column, min_support):
         'Average Quality': np.mean(quality_measures),
         'Average Coverage': np.mean(coverage_list),
         'Average Support': np.mean(support_list),
+        'Average WRacc': np.mean(wracc_list),
         'Number of Subgroups': len(frequent_itemsets),
         'Average Length of Subgroups': 0,
+        'Average Significance': np.mean(significance_list),
+        'Average Confidence': np.mean(confidence_list),
     }
 
     return result_metrics
@@ -242,7 +281,10 @@ def dssd(data, target_column, min_support):
 
     quality_measures = []
     coverage_list = []
-    support_list = [] 
+    support_list = []
+    wracc_list = []
+    significance_list = []
+    confidence_list = []
 
     for _, row in frequent_itemsets.iterrows():
         subgroup_data = data[np.logical_and.reduce([data[col] for col in row['itemsets']])]
@@ -256,13 +298,28 @@ def dssd(data, target_column, min_support):
         # Calculate support (proportion of examples in the dataset covered by the subgroup)
         support = coverage / len(data)
 
+        # Calculate WRAcc
+        wracc = quality * support
+
+        # Calculate Significance
+        significance = quality / np.sqrt(support)
+
+        # Calculate Confidence
+        confidence = subgroup_mean / overall_mean
+
         quality_measures.append(quality)
         coverage_list.append(coverage)
         support_list.append(support)
+        wracc_list.append(wracc)
+        significance_list.append(significance)
+        confidence_list.append(confidence)
 
     frequent_itemsets['quality'] = quality_measures
-    frequent_itemsets['coverage'] = coverage_list  # Add coverage to the DataFrame
+    frequent_itemsets['coverage'] = coverage_list
     frequent_itemsets['support'] = support_list
+    frequent_itemsets['WRAcc'] = wracc_list
+    frequent_itemsets['Significance'] = significance_list
+    frequent_itemsets['Confidence'] = confidence_list
 
     # Sort subgroups based on quality
     sorted_subgroups = frequent_itemsets.sort_values(by='quality', ascending=False)
@@ -280,11 +337,13 @@ def dssd(data, target_column, min_support):
 
     non_redundant_subgroups_df = sorted_subgroups[sorted_subgroups['itemsets'].isin(non_redundant_subgroups)]
 
-
     result_metrics = {
         'Average Quality': np.mean(non_redundant_subgroups_df.quality),
         'Average Coverage': np.mean(non_redundant_subgroups_df.coverage),
         'Average Support': np.mean(non_redundant_subgroups_df.support),
+        'Average WRAcc': np.mean(non_redundant_subgroups_df.WRAcc),
+        'Average Significance': np.mean(non_redundant_subgroups_df.Significance),
+        'Average Confidence': np.mean(non_redundant_subgroups_df.Confidence),
         'Number of Subgroups': len(non_redundant_subgroups_df["quality"]),
         'Average Length of Subgroups': 0,
     }
@@ -423,6 +482,21 @@ def apriori_sd(data, target_column, min_support=0.1, metric="lift", min_threshol
     # Convert antecedents and consequents from frozenset to string for readability
     target_rules['rule'] = target_rules['antecedents'].apply(lambda x: ' AND '.join(list(x)))
     target_rules['consequent'] = target_rules['consequents'].apply(lambda x: list(x)[0])
+
+    quality_measures = [
+        WRAcc(1),  # You can adjust the parameters as needed
+        Significance(1),  # You can adjust the parameters as needed
+        Confidence()
+    ]
+
+    for qm in quality_measures:
+        target_rules = SubgroupDiscovery(
+            target_rules,
+            data,
+            qm,
+            max_features=1,
+            min_quality=qm.minscore(target_rules)
+        )
 
     target_rules['coverage'] = target_rules['support'] / target_rules['antecedent support']
 
