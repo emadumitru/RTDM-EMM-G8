@@ -141,23 +141,31 @@ def cn2_sd(data, target_column):
         # Using string representation to extract the rule conditions
         rule_str = str(rule).split("->")[0].strip()
         coverage = rule.covered_examples
+        # print(coverage)
         support = len(coverage) / len(data)
         quality = rule.quality
 
         # Calculate WRAcc
-        true_positives = sum([data[target_column][idx] == "1" for idx in coverage])
+        # print(len(coverage))
+        # print("------")
+        # print(len(data[target_column]))
+        true_positives = sum([data[target_column][idx] == 1 for idx in range(len(coverage))])
         false_positives = len(coverage) - true_positives
         true_negatives = len(data) - len(coverage) - false_positives
-        false_negatives = len(data[data[target_column] == "1"]) - true_positives
-        wracc = (true_positives / len(data)) - ((true_positives + false_positives) * (true_positives + false_negatives) / (len(data) ** 2))
+        wracc = (len(coverage) / len(data)) * (((true_positives + true_negatives) / len(coverage)) - (len(data[data[target_column] == 1]) / len(data)))
 
-        # Calculate Significance
-        significance = (true_positives / len(coverage)) / (len(data[data[target_column] == "1"]) / len(data))
+        # Calculate Significance using likelihood ratio statistic
+        total_positive = len(data[data[target_column] == 1])
+
+        # Calculate Significance using likelihood ratio statistic
+        # non_subgroup_data = data - coverage
+        # _, significance = ranksums(coverage[target_column], non_subgroup_data[target_column])
+        significance = 2 * true_positives * np.log(true_positives / (len(data[target_column]) * (len(coverage)/len(data))))
 
         # Calculate Confidence
         confidence = (true_positives / len(coverage))
 
-        rules.append((rule_str, quality, coverage, support, wracc, significance, confidence))
+        rules.append((rule_str, quality, len(coverage), support, wracc, significance, confidence))
 
     # Convert rules into DataFrame
     rules_df = pd.DataFrame(rules, columns=['rule', 'quality', 'coverage', 'support', 'WRAcc', 'Significance', 'Confidence'])
@@ -167,14 +175,14 @@ def cn2_sd(data, target_column):
 
     result_metrics = {
         'Average Quality': np.mean(rules_df.quality),
-        'Average Coverage': 0,
+        'Average Coverage': np.mean(rules_df.coverage),
         'Average Support': np.mean(rules_df.support),
         'Number of Subgroups': num_subgroups,
         'Average Length of Subgroups': av_len_subgroups,
-        'Average WRAcc': np.mean(rules_df.WRAcc),
-        'Average Significance': np.mean(rules_df.Significance),
-        'Average Confidence': np.mean(rules_df.Confidence),
-    }
+        # 'Average WRAcc': np.mean(rules_df.WRAcc),
+        # 'Average Significance': np.mean(rules_df.Significance),
+        # 'Average Confidence': np.mean(rules_df.Confidence),
+    } 
 
     # return rules_df.sort_values(by='quality', ascending=False), num_subgroups, len_subgroups
     return result_metrics
@@ -213,10 +221,10 @@ def sd_map(data, target_column, min_support):
 
     for _, row in frequent_itemsets.iterrows():
         subgroup_data = data[np.logical_and.reduce([data[col] for col in row['itemsets']])]
+        # print(subgroup_data)
         subgroup_mean = subgroup_data[target_column].mean()
         coverage = len(subgroup_data)
         support = coverage / len(data)
-        wracc = support * (subgroup_mean - overall_mean)
         
         # Calculate Wilcoxon Rank Sum Test (Significance)
         non_subgroup_data = data[~np.logical_and.reduce([data[col] for col in row['itemsets']])]
@@ -225,6 +233,18 @@ def sd_map(data, target_column, min_support):
         # Calculate Confidence
         confidence = support / coverage
         
+        # Calculate TP, TN, FP, FN for the subgroup
+        TP = len(subgroup_data[subgroup_data[target_column] == 1])
+        TN = len(data[(~subgroup_data.index) & (data[target_column] == 0)])
+        FP = len(subgroup_data[subgroup_data[target_column] == 0])
+        FN = len(data[(~subgroup_data.index) & (data[target_column] == 1)])
+
+        # Calculate WRAcc
+        wracc = TP / len(data) - (TP + FP / len(data)) * (len(data[data[target_column] == 1] / len(data)))
+        # print(len(data))
+
+        # Rest of the code (Significance and Confidence calculations) remains the same
+
         quality_measures.append(subgroup_mean - overall_mean)
         coverage_list.append(coverage)
         support_list.append(support)
@@ -244,11 +264,11 @@ def sd_map(data, target_column, min_support):
         'Average Quality': np.mean(quality_measures),
         'Average Coverage': np.mean(coverage_list),
         'Average Support': np.mean(support_list),
-        'Average WRacc': np.mean(wracc_list),
+        # 'Average WRacc': np.mean(wracc_list),
         'Number of Subgroups': len(frequent_itemsets),
-        'Average Length of Subgroups': 0,
-        'Average Significance': np.mean(significance_list),
-        'Average Confidence': np.mean(confidence_list),
+        'Average Length of Subgroups': None,
+        # 'Average Significance': np.mean(significance_list),
+        # 'Average Confidence': np.mean(confidence_list),
     }
 
     return result_metrics
@@ -298,20 +318,27 @@ def dssd(data, target_column, min_support):
         # Calculate support (proportion of examples in the dataset covered by the subgroup)
         support = coverage / len(data)
 
-        # Calculate WRAcc
-        wracc = quality * support
-
         # Calculate Significance
-        significance = quality / np.sqrt(support)
+        non_subgroup_data = data[~data.index.isin(subgroup_data.index)]
+
+        _, p_value = ranksums(subgroup_data[target_column], non_subgroup_data[target_column])
 
         # Calculate Confidence
         confidence = subgroup_mean / overall_mean
 
-        quality_measures.append(quality)
+        TP = len(subgroup_data[subgroup_data[target_column] == 1])
+        FP = len(subgroup_data[subgroup_data[target_column] == 0])
+
+        # Calculate WRAcc
+        wracc = TP / len(data) - (TP + FP / len(data)) * (len(data[data[target_column] == 1] / len(data)))
+        # print(len(data))
+
+
+        quality_measures.append(subgroup_mean - overall_mean)
         coverage_list.append(coverage)
         support_list.append(support)
         wracc_list.append(wracc)
-        significance_list.append(significance)
+        significance_list.append(p_value)
         confidence_list.append(confidence)
 
     frequent_itemsets['quality'] = quality_measures
@@ -341,11 +368,11 @@ def dssd(data, target_column, min_support):
         'Average Quality': np.mean(non_redundant_subgroups_df.quality),
         'Average Coverage': np.mean(non_redundant_subgroups_df.coverage),
         'Average Support': np.mean(non_redundant_subgroups_df.support),
-        'Average WRAcc': np.mean(non_redundant_subgroups_df.WRAcc),
-        'Average Significance': np.mean(non_redundant_subgroups_df.Significance),
-        'Average Confidence': np.mean(non_redundant_subgroups_df.Confidence),
+        # 'Average WRAcc': np.mean(non_redundant_subgroups_df.WRAcc),
+        # 'Average Significance': np.mean(non_redundant_subgroups_df.Significance),
+        # 'Average Confidence': np.mean(non_redundant_subgroups_df.Confidence),
         'Number of Subgroups': len(non_redundant_subgroups_df["quality"]),
-        'Average Length of Subgroups': 0,
+        'Average Length of Subgroups': None,
     }
 
     return result_metrics
@@ -458,6 +485,44 @@ def apriori_sd(data, target_column, min_support=0.1, metric="lift", min_threshol
     - pd.DataFrame containing rules (as interpretable conditions) and their quality measures.
     """
 
+    def calculate_wracc(antecedent, consequent, data):
+        # Calculate TP, FP, and N (total instances)
+        # print(rule)
+        
+        # antecedent = data[antecedent]
+        # consequent = data[consequent]
+        # TP = (antecedent & consequent).sum()
+        # FP = (antecedent & ~consequent).sum()
+        N = len(data)
+
+        # antecedent = list(antecedent)[0]
+
+        subgroup_data = data[antecedent]
+        # print(antecedent)
+        # print("hi")
+        # print(subgroup_data)
+
+        consequent = list(consequent)[0]
+
+        TP = len(subgroup_data[subgroup_data[consequent] == 1])
+        FP = len(subgroup_data[subgroup_data[consequent] == 0])
+        
+        # Calculate WRAcc
+        WRAcc = TP / N - (TP + FP / N) * (len(data[data[consequent] == 1] / len(data)))
+        
+        return WRAcc
+    
+    def calculate_significance(antecedent, consequent, data):
+    # Extract the subgroup's conditions
+
+        rule = antecedent & consequent
+        subgroup_data = data[data[rule]]
+        non_subgroup_data = data - subgroup_data
+
+        _, p_value = ranksums(subgroup_data[consequent], non_subgroup_data[consequent])
+
+        return p_value
+
     # Convert numeric columns to binary (0/1) based on a threshold
     # Here, I'm using the median as the threshold, but you can adjust it
     for column in data.select_dtypes(['int64', 'float64']).columns:
@@ -475,6 +540,17 @@ def apriori_sd(data, target_column, min_support=0.1, metric="lift", min_threshol
 
     # Filter rules where the consequent is the target column
     target_rules = rules[rules['consequents'] == frozenset({target_column})]
+    
+    WRAcc_list = []
+    significance_list = []
+    data = data.dropna()
+    for i in range(len(target_rules)):
+        # print(type(target_rules["antecedents"]))
+        # wracc = calculate_wracc(list(target_rules['antecedents'])[i], list(target_rules['consequents'])[i], data)
+        significance = calculate_significance(list(target_rules['antecedents'])[i], list(target_rules['consequents'])[i], data)
+        # print(wracc)
+        # WRAcc_list.append(wracc)
+        significance_list.append(significance)
 
     # Rank rules based on the lift metric (or any other chosen metric)
     target_rules = target_rules.sort_values(by=metric, ascending=False)
@@ -482,28 +558,15 @@ def apriori_sd(data, target_column, min_support=0.1, metric="lift", min_threshol
     # Convert antecedents and consequents from frozenset to string for readability
     target_rules['rule'] = target_rules['antecedents'].apply(lambda x: ' AND '.join(list(x)))
     target_rules['consequent'] = target_rules['consequents'].apply(lambda x: list(x)[0])
-
-    quality_measures = [
-        WRAcc(1),  # You can adjust the parameters as needed
-        Significance(1),  # You can adjust the parameters as needed
-        Confidence()
-    ]
-
-    for qm in quality_measures:
-        target_rules = SubgroupDiscovery(
-            target_rules,
-            data,
-            qm,
-            max_features=1,
-            min_quality=qm.minscore(target_rules)
-        )
-
     target_rules['coverage'] = target_rules['support'] / target_rules['antecedent support']
 
     result_metrics = {
-        'Average Quality': 0,
+        'Average Quality': None,
         'Average Coverage': np.mean(target_rules.coverage),
         'Average Support': np.mean(target_rules.support),
+        # 'WRAcc': np.mean(WRAcc_list),
+        # 'Significance': np.mean(significance_list),
+        # 'Confidence': np.mean(target_rules.confidence),
         'Number of Subgroups': len(target_rules),
         'Average Length of Subgroups': np.mean([len(rule) for rule in target_rules["antecedents"]]),
     }
