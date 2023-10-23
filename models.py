@@ -378,7 +378,7 @@ def dssd(data, target_column, min_support):
     return result_metrics
 
 
-def nmeef_sd(data, target_column, n_generations=50, population_size=100):
+def nmeef_sd(data, target_column, n_generations=10, population_size=100):
     """
     Final NMEEF-SD evolutionary algorithm for subgroup discovery with crossover and mutate functions.
 
@@ -418,9 +418,8 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
         subgroup_mean = subgroup_data[target_column].mean()
         coverage = len(subgroup_data)
         support = coverage / len(data)
-        coverage_list.append(coverage)
-        support_list.append(support)
-        return (subgroup_mean - overall_mean) ** 2 * len(subgroup_data) / len(data)
+        weighed_quality = (subgroup_mean - overall_mean) ** 2 * len(subgroup_data) / len(data)
+        return (weighed_quality, coverage, support, rule)
 
     def binary_to_conditions(binary_rule, columns):
         """Convert binary rule to interpretable conditions."""
@@ -433,7 +432,7 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
     # Initialize population and storage for best rules and their quality
     population = initialize_population()
     best_rules = []
-    best_qualities = []
+    best_metrics = pd.DataFrame(columns = ["quality", "coverage", "support"])
 
     coverage_list = []
     support_list = []
@@ -441,33 +440,46 @@ def nmeef_sd(data, target_column, n_generations=50, population_size=100):
     # Evolutionary process
     for _ in range(n_generations):
         # Evaluate population
-        fitness_values = [evaluate_rule(rule) for rule in population]
+        rule_metrics = []
+        for rule in population:
+            temp = evaluate_rule(rule)
+            if type(temp) == tuple:
+                rule_metrics.append(temp)
+        rule_metrics = pd.DataFrame(rule_metrics, columns = ["quality", "coverage", "support", "rule"])
 
         # Store best rules and their qualities
-        sorted_population = [x for _, x in sorted(zip(fitness_values, population), reverse=True)]
+        sorted_population = list(rule_metrics.sort_values("quality")["rule"])
         best_rules.extend(sorted_population[:5])
-        best_qualities.extend(sorted(zip(fitness_values, population), reverse=True)[:5])
+        best_metrics = best_metrics.append(rule_metrics.sort_values("quality")[["quality", "coverage", "support"]][:5], ignore_index=True)
 
         # Select parents and produce offspring
         parents = sorted_population[:population_size // 2]
+        # print(parents)
         offspring = []
-        for i in range(0, population_size // 2, 2):
-            offspring1, offspring2 = crossover(parents[i], parents[i + 1])
+        for i in range(0, len(parents) // 2 - 2, 2):
+            # print(i)
+            offspring1, offspring2 = crossover(parents[i], parents[i+1])
             offspring.append(mutate(offspring1))
             offspring.append(mutate(offspring2))
 
         # Form new population
         population = parents + offspring
 
-
     # Convert best rules into DataFrame with interpretable conditions
-    rules_as_conditions = [binary_to_conditions(rule, columns) for rule in best_rules]
-    best_rules_df = pd.DataFrame({
-        'rule': rules_as_conditions,
-        'quality': [quality for quality, _ in best_qualities]
-    })
+    # rules_as_conditions = [binary_to_conditions(rule, columns) for rule in best_rules]
 
-    return best_rules_df.sort_values(by='quality', ascending=False).drop_duplicates()
+    result_metrics = {
+        'Average Quality': np.mean(best_metrics.quality),
+        'Average Coverage': np.mean(best_metrics.coverage),
+        'Average Support': np.mean(best_metrics.support),
+        # 'WRAcc': np.mean(WRAcc_list),
+        # 'Significance': np.mean(significance_list),
+        # 'Confidence': np.mean(target_rules.confidence),
+        'Number of Subgroups': len(best_rules),
+        'Average Length of Subgroups': np.mean([str(rule).count("1") for rule in best_rules]),
+    }
+
+    return result_metrics
 
 
 def apriori_sd(data, target_column, min_support=0.1, metric="lift", min_threshold=1):
