@@ -482,7 +482,8 @@ def nmeef_sd(data, target_column, n_generations=10, population_size=100):
         # Store best rules and their qualities
         sorted_population = list(rule_metrics.sort_values("quality")["rule"])
         best_rules.extend(sorted_population[:5])
-        best_metrics = best_metrics.append(rule_metrics.sort_values("quality")[["quality", "coverage", "support", "WRAcc", "significance", "confidence"]][:5], ignore_index=True)
+        best_metrics = pd.concat([best_metrics, rule_metrics.sort_values("quality").head(5)[["quality", "coverage", "support", "WRAcc", "significance", "confidence"]]], ignore_index=True)
+
 
         # Select parents and produce offspring
         parents = sorted_population[:population_size // 2]
