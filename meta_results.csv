@@ -1,0 +1,84 @@
+Algorithm,Rank,Subgroup,Support
+Algorithm=cn2_sd,1,frozenset({'Algorithm=cn2_sd'}),0.22
+Algorithm=cn2_sd,2,"frozenset({'Binned Significance=Low', 'Algorithm=cn2_sd'})",0.16
+Algorithm=cn2_sd,3,"frozenset({'Binned_WRAcc=Low', 'Algorithm=cn2_sd'})",0.12
+Algorithm=cn2_sd,4,"frozenset({'Algorithm=cn2_sd', 'Binned Confidence=Medium'})",0.12
+Algorithm=cn2_sd,5,"frozenset({'Algorithm=cn2_sd', 'Binned Coverage=High'})",0.12
+Algorithm=cn2_sd,6,"frozenset({'Algorithm=cn2_sd', 'Binned_Quality=Low'})",0.12
+Algorithm=cn2_sd,7,"frozenset({'Algorithm=cn2_sd', 'Binned Support=Medium'})",0.1
+Algorithm=cn2_sd,8,"frozenset({'Binned_WRAcc=Low', 'Binned Significance=Low', 'Algorithm=cn2_sd'})",0.1
+Algorithm=cn2_sd,9,"frozenset({'Binned Significance=Low', 'Algorithm=cn2_sd', 'Binned Confidence=Medium'})",0.1
+Algorithm=sd_map,1,frozenset({'Algorithm=sd_map'}),0.26
+Algorithm=sd_map,2,"frozenset({'Algorithm=sd_map', 'Binned Coverage=Medium'})",0.18
+Algorithm=sd_map,3,"frozenset({'Algorithm=sd_map', 'Binned Confidence=High'})",0.16
+Algorithm=sd_map,4,"frozenset({'Algorithm=sd_map', 'Binned_Quality=High'})",0.14
+Algorithm=sd_map,5,"frozenset({'Algorithm=sd_map', 'Binned_WRAcc=Medium'})",0.14
+Algorithm=sd_map,6,"frozenset({'Algorithm=sd_map', 'Binned_Quality=Medium'})",0.12
+Algorithm=sd_map,7,"frozenset({'Algorithm=sd_map', 'Binned Support=High'})",0.12
+Algorithm=sd_map,8,"frozenset({'Binned Significance=High', 'Algorithm=sd_map'})",0.12
+Algorithm=sd_map,9,"frozenset({'Algorithm=sd_map', 'Binned Support=High', 'Binned Confidence=High'})",0.12
+Algorithm=sd_map,10,"frozenset({'Algorithm=sd_map', 'Binned_Quality=Medium', 'Binned Coverage=Medium'})",0.12
+Algorithm=sd_map,11,"frozenset({'Algorithm=sd_map', 'Binned Support=Medium'})",0.1
+Algorithm=sd_map,12,"frozenset({'Algorithm=sd_map', 'Binned Support=High', 'Binned_Quality=High'})",0.1
+Algorithm=sd_map,13,"frozenset({'Algorithm=sd_map', 'Binned Coverage=Medium', 'Binned Confidence=High'})",0.1
+Algorithm=sd_map,14,"frozenset({'Binned Significance=High', 'Algorithm=sd_map', 'Binned_WRAcc=Medium'})",0.1
+Algorithm=sd_map,15,"frozenset({'Algorithm=sd_map', 'Binned Support=Medium', 'Binned Coverage=Medium'})",0.1
+Algorithm=sd_map,16,"frozenset({'Binned Significance=High', 'Algorithm=sd_map', 'Binned Coverage=Medium'})",0.1
+Algorithm=sd_map,17,"frozenset({'Algorithm=sd_map', 'Binned_WRAcc=Medium', 'Binned Coverage=Medium'})",0.1
+Algorithm=sd_map,18,"frozenset({'Algorithm=sd_map', 'Binned_Quality=High', 'Binned Confidence=High'})",0.1
+Algorithm=sd_map,19,"frozenset({'Algorithm=sd_map', 'Binned_Quality=Medium', 'Binned Support=Medium'})",0.1
+Algorithm=sd_map,20,"frozenset({'Algorithm=sd_map', 'Binned Confidence=High', 'Binned Support=High', 'Binned_Quality=High'})",0.1
+Algorithm=sd_map,21,"frozenset({'Algorithm=sd_map', 'Binned_Quality=Medium', 'Binned Support=Medium', 'Binned Coverage=Medium'})",0.1
+Algorithm=dssd,1,frozenset({'Algorithm=dssd'}),0.26
+Algorithm=dssd,2,"frozenset({'Algorithm=dssd', 'Binned Coverage=Medium'})",0.22
+Algorithm=dssd,3,"frozenset({'Algorithm=dssd', 'Binned Confidence=High'})",0.16
+Algorithm=dssd,4,"frozenset({'Algorithm=dssd', 'Binned_Quality=High'})",0.14
+Algorithm=dssd,5,"frozenset({'Binned Support=Medium', 'Algorithm=dssd'})",0.12
+Algorithm=dssd,6,"frozenset({'Binned_Quality=Medium', 'Algorithm=dssd'})",0.12
+Algorithm=dssd,7,"frozenset({'Binned_WRAcc=Medium', 'Algorithm=dssd'})",0.12
+Algorithm=dssd,8,"frozenset({'Binned Significance=High', 'Algorithm=dssd'})",0.12
+Algorithm=dssd,9,"frozenset({'Binned Coverage=Medium', 'Algorithm=dssd', 'Binned Confidence=High'})",0.12
+Algorithm=dssd,10,"frozenset({'Binned_WRAcc=Medium', 'Algorithm=dssd', 'Binned Coverage=Medium'})",0.12
+Algorithm=dssd,11,"frozenset({'Binned Significance=High', 'Algorithm=dssd', 'Binned Coverage=Medium'})",0.12
+Algorithm=dssd,12,"frozenset({'Binned Support=Medium', 'Algorithm=dssd', 'Binned Coverage=Medium'})",0.12
+Algorithm=dssd,13,"frozenset({'Binned_Quality=Medium', 'Algorithm=dssd', 'Binned Coverage=Medium'})",0.12
+Algorithm=dssd,14,"frozenset({'Binned_Quality=Medium', 'Binned Support=Medium', 'Algorithm=dssd'})",0.12
+Algorithm=dssd,15,"frozenset({'Algorithm=dssd', 'Binned_Quality=Medium', 'Binned Support=Medium', 'Binned Coverage=Medium'})",0.12
+Algorithm=dssd,16,"frozenset({'Binned Support=High', 'Algorithm=dssd'})",0.1
+Algorithm=dssd,17,"frozenset({'Binned_Quality=High', 'Algorithm=dssd', 'Binned Confidence=High'})",0.1
+Algorithm=dssd,18,"frozenset({'Binned_Quality=High', 'Algorithm=dssd', 'Binned Coverage=Medium'})",0.1
+Algorithm=dssd,19,"frozenset({'Binned Support=High', 'Algorithm=dssd', 'Binned_Quality=High'})",0.1
+Algorithm=dssd,20,"frozenset({'Binned Support=High', 'Algorithm=dssd', 'Binned Confidence=High'})",0.1
+Algorithm=dssd,21,"frozenset({'Algorithm=dssd', 'Binned Confidence=High', 'Binned Support=High', 'Binned_Quality=High'})",0.1
+Algorithm=nnmeef,1,frozenset({'Algorithm=nnmeef'}),0.26
+Algorithm=nnmeef,2,"frozenset({'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.2
+Algorithm=nnmeef,3,"frozenset({'Binned Support=Low', 'Algorithm=nnmeef'})",0.18
+Algorithm=nnmeef,4,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef'})",0.18
+Algorithm=nnmeef,5,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Algorithm=nnmeef'})",0.18
+Algorithm=nnmeef,6,"frozenset({'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.14
+Algorithm=nnmeef,7,"frozenset({'Binned Significance=Medium', 'Algorithm=nnmeef'})",0.14
+Algorithm=nnmeef,8,"frozenset({'Binned Support=Low', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.14
+Algorithm=nnmeef,9,"frozenset({'Binned Confidence=Low', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.14
+Algorithm=nnmeef,10,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.14
+Algorithm=nnmeef,11,"frozenset({'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.12
+Algorithm=nnmeef,12,"frozenset({'Binned_WRAcc=Low', 'Algorithm=nnmeef'})",0.12
+Algorithm=nnmeef,13,"frozenset({'Binned_WRAcc=Medium', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.12
+Algorithm=nnmeef,14,"frozenset({'Binned Support=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.12
+Algorithm=nnmeef,15,"frozenset({'Binned Confidence=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.12
+Algorithm=nnmeef,16,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.12
+Algorithm=nnmeef,17,"frozenset({'Binned Confidence=Low', 'Binned Significance=Medium', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,18,"frozenset({'Binned_Quality=Low', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,19,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,20,"frozenset({'Binned Significance=Medium', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,21,"frozenset({'Binned Support=Low', 'Binned Significance=Medium', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,22,"frozenset({'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,23,"frozenset({'Binned Significance=Medium', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,24,"frozenset({'Binned_WRAcc=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,25,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.1
+Algorithm=nnmeef,26,"frozenset({'Binned Confidence=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef', 'Binned Significance=Medium'})",0.1
+Algorithm=nnmeef,27,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.1
+Algorithm=nnmeef,28,"frozenset({'Binned Support=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef', 'Binned Significance=Medium'})",0.1
+Algorithm=nnmeef,29,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Significance=Medium'})",0.1
+Algorithm=nnmeef,30,"frozenset({'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.1
+Algorithm=nnmeef,31,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low'})",0.1
+Algorithm=nnmeef,32,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Support=Low', 'Binned_Quality=Low', 'Binned Significance=Medium'})",0.1
