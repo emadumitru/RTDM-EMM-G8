@@ -68,18 +68,61 @@ def sd(data, target_column):
 
     # Calculate quality for each rule (difference from global mean)
     overall_mean = y.mean()
-    qualities = [y[i] - overall_mean for i in range(len(y))]
+    # qualities = [y.iloc[i] - overall_mean for i in range(len(y))]
 
-    coverage_list = [0] * len(rules)
-    support_list = [0] * len(rules)
+    coverage_list = []
+    quality_list = []
+    support_list = []
+    wracc_list = []
+    confidence_list = []
+    significance_list = []
+
+    rules = list(dict.fromkeys(rules))
 
     for i in range(len(rules)):
         rule = rules[i]
-        subgroup_data = data.query(rule)
-        coverage = len(subgroup_data)
-        support = coverage / len(data)
-        coverage_list[i] = coverage
-        support_list[i] = support
+        # quality = rule.quality
+        conditions = rule.split(' AND ')
+        # Apply each condition to filter the subgroup
+        subgroup = data
+        expressions = [" > ", " < ", " >= ", " <=", " == ", " != "]
+        for condition in conditions:
+            for ex in expressions:
+                if ex in condition:
+                    col_name, value = condition.split(ex)
+                    if ex in [" > ",  " >= "]:
+                        value = 1
+                    elif ex in [" < ",  " <= "]:
+                        value = 0
+                    subgroup = subgroup[subgroup[col_name] == float(value)]
+            print(condition)
+
+        subgroup_mean = subgroup[target_column].mean()
+        coverage = len(subgroup) / len(data)
+        print("len sub: "+ str(len(subgroup)))
+
+        TP = 0
+        for i in list(subgroup.index)[1:]:
+            if (subgroup[target_column][i] == 1) & (data[target_column][i] == 1):
+                TP += 1
+        FP = len(subgroup) - TP
+
+        support = TP / len(data)
+        wracc = TP / len(data) - ((TP + FP) / len(data)) * (len(data[data[target_column] == 1]) / len(data))
+        quality = subgroup_mean - overall_mean
+        non_subgroup_data = data[~data.index.isin(subgroup.index)].dropna()
+        subgroup = subgroup.dropna()
+        _, significance = ranksums(subgroup[target_column], non_subgroup_data[target_column])
+       
+        # Calculate Confidence
+        confidence = (TP / len(subgroup)) if len(subgroup) > 0 else 0
+
+        coverage_list.append(coverage)
+        quality_list.append(quality)
+        support_list.append(support)
+        wracc_list.append(wracc)
+        confidence_list.append(confidence)
+        significance_list.append(significance)
 
     # Number of subgroups
     num_subgroups = len(rules)
@@ -90,19 +133,24 @@ def sd(data, target_column):
     # Convert rules and metrics into DataFrame
     rules_df = pd.DataFrame({
         'rule': rules,
-        'quality': qualities,
+        'quality': quality_list,
         'coverage': coverage_list,
-        'support': support_list
+        'support': support_list,
+
     })
 
     result_metrics = {
         'Average Quality': np.mean(rules_df.quality),
         'Average Coverage': np.mean(coverage_list),
         'Average Support': np.mean(support_list),
+        'Average WRAcc': np.mean(wracc_list),
+        'Average Significance': np.mean(significance_list),
+        'Average Confidence': np.mean(confidence_list),
         'Number of Subgroups': num_subgroups,
         'Average Length of Subgroups': avg_length_subgroups,
     }
 
+    print(result_metrics)
     return result_metrics
 
 
@@ -266,8 +314,6 @@ def sd_map(data, target_column, min_support):
 
         # Calculate WRAcc
         wracc = TP / len(data) - ((TP + FP) / len(data)) * (len(data[data[target_column] == 1]) / len(data))
-        # wracc = (len(subgroup) / len(data)) * (((true_positives + true_negatives) / len(subgroup)) - (len(data[data[target_column] == 1]) / len(data)))
-
 
         quality_measures.append(subgroup_mean - overall_mean)
         coverage_list.append(coverage)
@@ -482,8 +528,7 @@ def nmeef_sd(data, target_column, n_generations=10, population_size=100):
         # Store best rules and their qualities
         sorted_population = list(rule_metrics.sort_values("quality")["rule"])
         best_rules.extend(sorted_population[:5])
-        best_metrics = pd.concat([best_metrics, rule_metrics.sort_values("quality").head(5)[["quality", "coverage", "support", "WRAcc", "significance", "confidence"]]], ignore_index=True)
-
+        best_metrics = best_metrics.append(rule_metrics.sort_values("quality")[["quality", "coverage", "support", "WRAcc", "significance", "confidence"]][:5], ignore_index=True)
 
         # Select parents and produce offspring
         parents = sorted_population[:population_size // 2]
