@@ -1,149 +1,54 @@
 Algorithm,Rank,Subgroup,Support
-Algorithm=cn2_sd,1,frozenset({'Algorithm=cn2_sd'}),0.23529411764705882
-Algorithm=cn2_sd,2,"frozenset({'target_type=Binary', 'Algorithm=cn2_sd'})",0.21568627450980393
-Algorithm=cn2_sd,3,"frozenset({'Algorithm=cn2_sd', 'Binned Coverage=High'})",0.19607843137254902
-Algorithm=cn2_sd,4,"frozenset({'target_type=Binary', 'Algorithm=cn2_sd', 'Binned Coverage=High'})",0.19607843137254902
-Algorithm=cn2_sd,5,"frozenset({'Algorithm=cn2_sd', 'Binned_Quality=Low'})",0.1568627450980392
-Algorithm=cn2_sd,6,"frozenset({'Binned_WRAcc=Low', 'Algorithm=cn2_sd'})",0.13725490196078433
-Algorithm=cn2_sd,7,"frozenset({'Algorithm=cn2_sd', 'Binned_num_columns=Medium'})",0.13725490196078433
-Algorithm=cn2_sd,8,"frozenset({'target_type=Binary', 'Algorithm=cn2_sd', 'Binned_Quality=Low'})",0.13725490196078433
-Algorithm=cn2_sd,9,"frozenset({'Binned_WRAcc=Low', 'Algorithm=cn2_sd', 'Binned_Quality=Low'})",0.13725490196078433
-Algorithm=cn2_sd,10,"frozenset({'Algorithm=cn2_sd', 'Binned Significance=Medium'})",0.11764705882352941
-Algorithm=cn2_sd,11,"frozenset({'Binned Significance=Low', 'Algorithm=cn2_sd'})",0.11764705882352941
-Algorithm=cn2_sd,12,"frozenset({'target_type=Binary', 'Algorithm=cn2_sd', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=cn2_sd,13,"frozenset({'Binned Significance=Medium', 'Binned Coverage=High', 'Algorithm=cn2_sd'})",0.11764705882352941
-Algorithm=cn2_sd,14,"frozenset({'target_type=Binary', 'Binned Significance=Medium', 'Algorithm=cn2_sd'})",0.11764705882352941
-Algorithm=cn2_sd,15,"frozenset({'Binned_WRAcc=Low', 'Binned Significance=Low', 'Algorithm=cn2_sd'})",0.11764705882352941
-Algorithm=cn2_sd,16,"frozenset({'Binned Significance=Low', 'Algorithm=cn2_sd', 'Binned_Quality=Low'})",0.11764705882352941
-Algorithm=cn2_sd,17,"frozenset({'Binned_WRAcc=Low', 'Algorithm=cn2_sd', 'target_type=Binary'})",0.11764705882352941
-Algorithm=cn2_sd,18,"frozenset({'Algorithm=cn2_sd', 'Binned Coverage=High', 'Binned_Quality=Low'})",0.11764705882352941
-Algorithm=cn2_sd,19,"frozenset({'target_type=Binary', 'Binned Significance=Medium', 'Binned Coverage=High', 'Algorithm=cn2_sd'})",0.11764705882352941
-Algorithm=cn2_sd,20,"frozenset({'target_type=Binary', 'Binned_WRAcc=Low', 'Binned_Quality=Low', 'Algorithm=cn2_sd'})",0.11764705882352941
-Algorithm=cn2_sd,21,"frozenset({'Binned_WRAcc=Low', 'Binned Significance=Low', 'Binned_Quality=Low', 'Algorithm=cn2_sd'})",0.11764705882352941
-Algorithm=cn2_sd,22,"frozenset({'target_type=Binary', 'Binned_Quality=Low', 'Algorithm=cn2_sd', 'Binned Coverage=High'})",0.11764705882352941
-Algorithm=sd_map,1,frozenset({'Algorithm=sd_map'}),0.2549019607843137
-Algorithm=sd_map,2,"frozenset({'Algorithm=sd_map', 'Binned Coverage=Medium'})",0.23529411764705882
-Algorithm=sd_map,3,"frozenset({'target_type=Binary', 'Algorithm=sd_map'})",0.23529411764705882
-Algorithm=sd_map,4,"frozenset({'target_type=Binary', 'Algorithm=sd_map', 'Binned Coverage=Medium'})",0.21568627450980393
-Algorithm=sd_map,5,"frozenset({'Binned_Quality=Medium', 'Algorithm=sd_map'})",0.1568627450980392
-Algorithm=sd_map,6,"frozenset({'Algorithm=sd_map', 'Binned_Quality=Medium', 'Binned Coverage=Medium'})",0.1568627450980392
-Algorithm=sd_map,7,"frozenset({'target_type=Binary', 'Binned_Quality=Medium', 'Algorithm=sd_map'})",0.1568627450980392
-Algorithm=sd_map,8,"frozenset({'target_type=Binary', 'Algorithm=sd_map', 'Binned_Quality=Medium', 'Binned Coverage=Medium'})",0.1568627450980392
-Algorithm=sd_map,9,"frozenset({'Algorithm=sd_map', 'Binned_num_columns=Medium'})",0.13725490196078433
-Algorithm=sd_map,10,"frozenset({'Algorithm=sd_map', 'Binned Confidence=High'})",0.13725490196078433
-Algorithm=sd_map,11,"frozenset({'Algorithm=sd_map', 'Binned_num_columns=Medium', 'Binned Coverage=Medium'})",0.13725490196078433
-Algorithm=sd_map,12,"frozenset({'Algorithm=sd_map', 'Binned Confidence=High', 'Binned Coverage=Medium'})",0.11764705882352941
-Algorithm=sd_map,13,"frozenset({'target_type=Binary', 'Algorithm=sd_map', 'Binned Confidence=High'})",0.11764705882352941
-Algorithm=sd_map,14,"frozenset({'target_type=Binary', 'Algorithm=sd_map', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=sd_map,15,"frozenset({'target_type=Binary', 'Algorithm=sd_map', 'Binned_num_columns=Medium', 'Binned Coverage=Medium'})",0.11764705882352941
-Algorithm=dssd,1,frozenset({'Algorithm=dssd'}),0.2549019607843137
-Algorithm=dssd,2,"frozenset({'target_type=Binary', 'Algorithm=dssd'})",0.23529411764705882
-Algorithm=dssd,3,"frozenset({'Binned_Quality=Medium', 'Algorithm=dssd'})",0.1568627450980392
-Algorithm=dssd,4,"frozenset({'Algorithm=dssd', 'Binned Coverage=Medium'})",0.1568627450980392
-Algorithm=dssd,5,"frozenset({'target_type=Binary', 'Binned_Quality=Medium', 'Algorithm=dssd'})",0.1568627450980392
-Algorithm=dssd,6,"frozenset({'Algorithm=dssd', 'Binned Confidence=High'})",0.13725490196078433
-Algorithm=dssd,7,"frozenset({'Binned_num_columns=Medium', 'Algorithm=dssd'})",0.13725490196078433
-Algorithm=dssd,8,"frozenset({'target_type=Binary', 'Algorithm=dssd', 'Binned Coverage=Medium'})",0.13725490196078433
-Algorithm=dssd,9,"frozenset({'target_type=Binary', 'Algorithm=dssd', 'Binned Confidence=High'})",0.11764705882352941
-Algorithm=dssd,10,"frozenset({'target_type=Binary', 'Binned_num_columns=Medium', 'Algorithm=dssd'})",0.11764705882352941
-Algorithm=nnmeef,1,frozenset({'Algorithm=nnmeef'}),0.2549019607843137
-Algorithm=nnmeef,2,"frozenset({'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.23529411764705882
-Algorithm=nnmeef,3,"frozenset({'target_type=Binary', 'Algorithm=nnmeef'})",0.23529411764705882
-Algorithm=nnmeef,4,"frozenset({'Binned Support=Low', 'Algorithm=nnmeef'})",0.21568627450980393
-Algorithm=nnmeef,5,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef'})",0.21568627450980393
-Algorithm=nnmeef,6,"frozenset({'target_type=Binary', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.21568627450980393
-Algorithm=nnmeef,7,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Algorithm=nnmeef'})",0.21568627450980393
-Algorithm=nnmeef,8,"frozenset({'Binned Confidence=Low', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.19607843137254902
-Algorithm=nnmeef,9,"frozenset({'Binned Confidence=Low', 'target_type=Binary', 'Algorithm=nnmeef'})",0.19607843137254902
-Algorithm=nnmeef,10,"frozenset({'Binned Support=Low', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.19607843137254902
-Algorithm=nnmeef,11,"frozenset({'target_type=Binary', 'Binned Support=Low', 'Algorithm=nnmeef'})",0.19607843137254902
-Algorithm=nnmeef,12,"frozenset({'Binned Confidence=Low', 'Binned Support=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.19607843137254902
-Algorithm=nnmeef,13,"frozenset({'target_type=Binary', 'Binned Support=Low', 'Binned Confidence=Low', 'Algorithm=nnmeef'})",0.19607843137254902
-Algorithm=nnmeef,14,"frozenset({'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.17647058823529413
-Algorithm=nnmeef,15,"frozenset({'target_type=Binary', 'Binned Support=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.17647058823529413
-Algorithm=nnmeef,16,"frozenset({'Binned Confidence=Low', 'target_type=Binary', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.17647058823529413
-Algorithm=nnmeef,17,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary', 'Binned Support=Low'})",0.17647058823529413
-Algorithm=nnmeef,18,"frozenset({'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.1568627450980392
-Algorithm=nnmeef,19,"frozenset({'Binned_Quality=Low', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.1568627450980392
-Algorithm=nnmeef,20,"frozenset({'Binned_WRAcc=Medium', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.1568627450980392
-Algorithm=nnmeef,21,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.1568627450980392
-Algorithm=nnmeef,22,"frozenset({'target_type=Binary', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.1568627450980392
-Algorithm=nnmeef,23,"frozenset({'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.1568627450980392
-Algorithm=nnmeef,24,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.1568627450980392
-Algorithm=nnmeef,25,"frozenset({'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.1568627450980392
-Algorithm=nnmeef,26,"frozenset({'Binned Confidence=Low', 'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.1568627450980392
-Algorithm=nnmeef,27,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low'})",0.1568627450980392
-Algorithm=nnmeef,28,"frozenset({'Binned_num_columns=Medium', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,29,"frozenset({'Binned Significance=High', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,30,"frozenset({'Binned Support=Low', 'Binned_num_columns=Medium', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,31,"frozenset({'Binned Significance=High', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,32,"frozenset({'target_type=Binary', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,33,"frozenset({'Binned Confidence=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,34,"frozenset({'Binned Confidence=Low', 'Binned_num_columns=Medium', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,35,"frozenset({'Binned_num_columns=Medium', 'Binned Coverage=Low', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,36,"frozenset({'Binned Support=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,37,"frozenset({'target_type=Binary', 'Binned Significance=High', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,38,"frozenset({'target_type=Binary', 'Binned_Quality=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.13725490196078433
-Algorithm=nnmeef,39,"frozenset({'Binned Confidence=Low', 'target_type=Binary', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,40,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned_num_columns=Medium', 'Binned Coverage=Low'})",0.13725490196078433
-Algorithm=nnmeef,41,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned_num_columns=Medium'})",0.13725490196078433
-Algorithm=nnmeef,42,"frozenset({'target_type=Binary', 'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,43,"frozenset({'Binned Support=Low', 'Binned Confidence=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.13725490196078433
-Algorithm=nnmeef,44,"frozenset({'Binned Support=Low', 'Algorithm=nnmeef', 'Binned_num_columns=Medium', 'Binned Coverage=Low'})",0.13725490196078433
-Algorithm=nnmeef,45,"frozenset({'Binned Significance=High', 'target_type=Binary', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.13725490196078433
-Algorithm=nnmeef,46,"frozenset({'target_type=Binary', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.13725490196078433
-Algorithm=nnmeef,47,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'Binned_num_columns=Medium'})",0.13725490196078433
-Algorithm=nnmeef,48,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary'})",0.13725490196078433
-Algorithm=nnmeef,49,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'target_type=Binary', 'Binned Support=Low'})",0.13725490196078433
-Algorithm=nnmeef,50,"frozenset({'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'target_type=Binary'})",0.13725490196078433
-Algorithm=nnmeef,51,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'target_type=Binary'})",0.13725490196078433
-Algorithm=nnmeef,52,"frozenset({'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,53,"frozenset({'Binned Significance=High', 'Binned Support=Low', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,54,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,55,"frozenset({'Binned_WRAcc=Medium', 'Binned_num_columns=Medium', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,56,"frozenset({'target_type=Binary', 'Binned_num_columns=Medium', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,57,"frozenset({'Binned Support=Low', 'target_type=Binary', 'Algorithm=nnmeef', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,58,"frozenset({'Binned Confidence=Low', 'target_type=Binary', 'Binned Significance=High', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,59,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,60,"frozenset({'Binned Confidence=Low', 'target_type=Binary', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,61,"frozenset({'Binned Significance=High', 'Binned Support=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,62,"frozenset({'Binned Confidence=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,63,"frozenset({'Binned Confidence=Low', 'target_type=Binary', 'Algorithm=nnmeef', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,64,"frozenset({'Binned Support=Low', 'Binned_Quality=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,65,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,66,"frozenset({'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,67,"frozenset({'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned_num_columns=Medium', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,68,"frozenset({'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,69,"frozenset({'Binned Support=Low', 'target_type=Binary', 'Binned_Quality=Low', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,70,"frozenset({'Binned Significance=High', 'Binned Support=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,71,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned_num_columns=Medium', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,72,"frozenset({'Binned Confidence=Low', 'Binned Support=Low', 'Binned Significance=High', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,73,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,74,"frozenset({'Binned Significance=High', 'Binned Support=Low', 'target_type=Binary', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,75,"frozenset({'Binned Significance=High', 'target_type=Binary', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef'})",0.11764705882352941
-Algorithm=nnmeef,76,"frozenset({'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,77,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'target_type=Binary'})",0.11764705882352941
-Algorithm=nnmeef,78,"frozenset({'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,79,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Support=Low', 'target_type=Binary', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,80,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.11764705882352941
-Algorithm=nnmeef,81,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary'})",0.11764705882352941
-Algorithm=nnmeef,82,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'target_type=Binary', 'Binned Support=Low', 'Binned_Quality=Low'})",0.11764705882352941
-Algorithm=nnmeef,83,"frozenset({'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Support=Low', 'target_type=Binary'})",0.11764705882352941
-Algorithm=nnmeef,84,"frozenset({'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary'})",0.11764705882352941
-Algorithm=nnmeef,85,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Algorithm=nnmeef', 'target_type=Binary', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,86,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Support=Low', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,87,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,88,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,89,"frozenset({'Binned Significance=High', 'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,90,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'Binned_Quality=Low'})",0.11764705882352941
-Algorithm=nnmeef,91,"frozenset({'Binned Significance=High', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,92,"frozenset({'Binned Significance=High', 'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,93,"frozenset({'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'target_type=Binary', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,94,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary'})",0.11764705882352941
-Algorithm=nnmeef,95,"frozenset({'Binned Significance=High', 'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,96,"frozenset({'Binned Confidence=Low', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'target_type=Binary', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,97,"frozenset({'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'target_type=Binary'})",0.11764705882352941
-Algorithm=nnmeef,98,"frozenset({'Binned Confidence=Low', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low', 'Binned_num_columns=Medium'})",0.11764705882352941
-Algorithm=nnmeef,99,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'target_type=Binary', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,100,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary', 'Binned Support=Low'})",0.11764705882352941
-Algorithm=nnmeef,101,"frozenset({'Binned Confidence=Low', 'Binned Significance=High', 'Binned_WRAcc=Medium', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'target_type=Binary', 'Binned Support=Low'})",0.11764705882352941
+Algorithm=sd,1,frozenset({'Algorithm=sd'}),0.16666666666666666
+Algorithm=sd,2,"frozenset({'Algorithm=sd', 'target_type=Binary'})",0.15555555555555556
+Algorithm=sd,3,"frozenset({'Algorithm=sd', 'Binned Coverage=Low'})",0.12222222222222222
+Algorithm=sd,4,"frozenset({'Algorithm=sd', 'target_type=Binary', 'Binned Coverage=Low'})",0.1111111111111111
+Algorithm=cn2_sd,1,frozenset({'Algorithm=cn2_sd'}),0.16666666666666666
+Algorithm=cn2_sd,2,"frozenset({'target_type=Binary', 'Algorithm=cn2_sd'})",0.15555555555555556
+Algorithm=cn2_sd,3,"frozenset({'Algorithm=cn2_sd', 'Binned Coverage=High'})",0.14444444444444443
+Algorithm=cn2_sd,4,"frozenset({'target_type=Binary', 'Algorithm=cn2_sd', 'Binned Coverage=High'})",0.14444444444444443
+Algorithm=cn2_sd,5,"frozenset({'Binned_Quality=Low', 'Algorithm=cn2_sd'})",0.13333333333333333
+Algorithm=cn2_sd,6,"frozenset({'target_type=Binary', 'Binned_Quality=Low', 'Algorithm=cn2_sd'})",0.12222222222222222
+Algorithm=cn2_sd,7,"frozenset({'Binned_Quality=Low', 'Algorithm=cn2_sd', 'Binned Coverage=High'})",0.1111111111111111
+Algorithm=cn2_sd,8,"frozenset({'target_type=Binary', 'Algorithm=cn2_sd', 'Binned_Quality=Low', 'Binned Coverage=High'})",0.1111111111111111
+Algorithm=cn2_sd,9,"frozenset({'Algorithm=cn2_sd', 'Binned Significance=Low'})",0.1
+Algorithm=cn2_sd,10,"frozenset({'Binned_WRAcc=Low', 'Algorithm=cn2_sd'})",0.1
+Algorithm=cn2_sd,11,"frozenset({'Binned_WRAcc=Low', 'Binned_Quality=Low', 'Algorithm=cn2_sd'})",0.1
+Algorithm=cn2_sd,12,"frozenset({'Binned_Quality=Low', 'Algorithm=cn2_sd', 'Binned Significance=Low'})",0.1
+Algorithm=sd_map,1,frozenset({'Algorithm=sd_map'}),0.16666666666666666
+Algorithm=sd_map,2,"frozenset({'target_type=Binary', 'Algorithm=sd_map'})",0.15555555555555556
+Algorithm=sd_map,3,"frozenset({'Algorithm=sd_map', 'Binned Coverage=Medium'})",0.14444444444444443
+Algorithm=sd_map,4,"frozenset({'target_type=Binary', 'Algorithm=sd_map', 'Binned Coverage=Medium'})",0.13333333333333333
+Algorithm=sd_map,5,"frozenset({'Binned Confidence=High', 'Algorithm=sd_map'})",0.1
+Algorithm=dssd,1,frozenset({'Algorithm=dssd'}),0.16666666666666666
+Algorithm=dssd,2,"frozenset({'target_type=Binary', 'Algorithm=dssd'})",0.15555555555555556
+Algorithm=dssd,3,"frozenset({'Algorithm=dssd', 'Binned Coverage=Medium'})",0.12222222222222222
+Algorithm=dssd,4,"frozenset({'target_type=Binary', 'Algorithm=dssd', 'Binned Coverage=Medium'})",0.1111111111111111
+Algorithm=dssd,5,"frozenset({'Algorithm=dssd', 'Binned Confidence=High'})",0.1
+Algorithm=dssd,6,"frozenset({'Algorithm=dssd', 'Binned_Quality=Medium'})",0.1
+Algorithm=dssd,7,"frozenset({'target_type=Binary', 'Algorithm=dssd', 'Binned_Quality=Medium'})",0.1
+Algorithm=nnmeef,1,frozenset({'Algorithm=nnmeef'}),0.16666666666666666
+Algorithm=nnmeef,2,"frozenset({'target_type=Binary', 'Algorithm=nnmeef'})",0.15555555555555556
+Algorithm=nnmeef,3,"frozenset({'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.14444444444444443
+Algorithm=nnmeef,4,"frozenset({'Algorithm=nnmeef', 'Binned Support=Low'})",0.13333333333333333
+Algorithm=nnmeef,5,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned Coverage=Low'})",0.13333333333333333
+Algorithm=nnmeef,6,"frozenset({'Algorithm=nnmeef', 'Binned Confidence=Low'})",0.12222222222222222
+Algorithm=nnmeef,7,"frozenset({'Algorithm=nnmeef', 'Binned Confidence=Low', 'Binned Support=Low'})",0.12222222222222222
+Algorithm=nnmeef,8,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned Support=Low'})",0.12222222222222222
+Algorithm=nnmeef,9,"frozenset({'Algorithm=nnmeef', 'Binned Support=Low', 'Binned Coverage=Low'})",0.12222222222222222
+Algorithm=nnmeef,10,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned Confidence=Low'})",0.1111111111111111
+Algorithm=nnmeef,11,"frozenset({'Algorithm=nnmeef', 'Binned Confidence=Low', 'Binned Coverage=Low'})",0.1111111111111111
+Algorithm=nnmeef,12,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Support=Low'})",0.1111111111111111
+Algorithm=nnmeef,13,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned Confidence=Low', 'Binned Support=Low'})",0.1111111111111111
+Algorithm=nnmeef,14,"frozenset({'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Confidence=Low', 'Binned Support=Low'})",0.1111111111111111
+Algorithm=nnmeef,15,"frozenset({'Algorithm=nnmeef', 'Binned_Quality=Low'})",0.1
+Algorithm=nnmeef,16,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned Confidence=Low', 'Binned Coverage=Low'})",0.1
+Algorithm=nnmeef,17,"frozenset({'target_type=Binary', 'Algorithm=nnmeef', 'Binned Coverage=Low', 'Binned Confidence=Low', 'Binned Support=Low'})",0.1
+Algorithm=apriori,1,frozenset({'Algorithm=apriori'}),0.16666666666666666
+Algorithm=apriori,2,"frozenset({'target_type=Binary', 'Algorithm=apriori'})",0.15555555555555556
+Algorithm=apriori,3,"frozenset({'Algorithm=apriori', 'Binned Support=High'})",0.12222222222222222
+Algorithm=apriori,4,"frozenset({'Algorithm=apriori', 'Binned Coverage=High'})",0.1111111111111111
+Algorithm=apriori,5,"frozenset({'target_type=Binary', 'Algorithm=apriori', 'Binned Support=High'})",0.1111111111111111
+Algorithm=apriori,6,"frozenset({'Algorithm=apriori', 'Binned Support=High', 'Binned Coverage=High'})",0.1111111111111111
+Algorithm=apriori,7,"frozenset({'target_type=Binary', 'Algorithm=apriori', 'Binned Coverage=High'})",0.1
+Algorithm=apriori,8,"frozenset({'target_type=Binary', 'Binned Support=High', 'Algorithm=apriori', 'Binned Coverage=High'})",0.1
